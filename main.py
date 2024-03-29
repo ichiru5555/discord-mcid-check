@@ -47,7 +47,7 @@ async def on_message(message):
     if disregard_role_id in author_roles:
         return
     message_content = message.content
-    pattern_updated = r"(?:【)?mcid(?:】)?\s*(.+)"
+    pattern_updated = r"(?:【|\(|「)?\bmcid\b(?:】|\)|」)?:?\s*([A-Za-z0-9_-]+)"
     mcid_match_updated = re.search(pattern_updated, message_content, re.IGNORECASE)
     mcid = mcid_match_updated.group(1) if mcid_match_updated else "MCID not found"
     for pattern in patterns_to_remove:

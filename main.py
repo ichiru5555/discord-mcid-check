@@ -55,13 +55,19 @@ async def on_message(message):
     if mcid == "MCID not found":
         return
     if await mcid_check(f"{mc_url[0]}/{mcid}"):
-        message = f"{message.author.name}の{mcid}はJava版のアカウントです。"
+        embed = discord.Embed(title=f"{message.author.name}のMCID検証結果",
+                      description=f"{mcid}はJava版のアカウントです。",
+                      color=0x00ff00)
     elif await mcid_check(f"{mc_url[1]}/{mcid}"):
-        message = f"{message.author.name}の{mcid}は統合版のアカウントです。"
+        embed = discord.Embed(title=f"{message.author.name}のMCID検証結果",
+                      description=f"{mcid}は統合版のアカウントです。",
+                      color=0x00ff00)
     else:
-        message = f"{message.author.name}の{mcid}の確認ができませんでした。"
+        embed = discord.Embed(title=f"{message.author.name}のMCID検証結果",
+                      description=f"{mcid}の確認ができませんでした。",
+                      color=0X0000FF)
     channel = client.get_channel(send_channel_id)
     if channel:
-        await channel.send(message)
+        await channel.send(embed=embed)
 
 client.run(token)
